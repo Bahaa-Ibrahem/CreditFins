@@ -1,0 +1,190 @@
+<div class="row">
+    <div class="col-sm-12">
+        <h1>INVOICE</h1>
+    </div>
+</div>
+<form [formGroup]='Form' (ngSubmit)='onSubmit()' class="row">
+    <div class="col-sm-8">
+        <div class="form-group">
+            <div class="col-sm-8">
+                <input id="companyName" class="form-control" type="text" formControlName='companyName' placeholder="Company Name">
+                <span *ngIf="!Form.get('companyName').valid && Form.get('companyName').touched" class="help-block">
+                    Please enter company name!
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-8">
+                <input id="address" class="form-control" type="address" formControlName='address' placeholder="Address (City, State Zip Code)">
+                <span *ngIf="!Form.get('address').valid && Form.get('address').touched" class="help-block">
+                    Please enter address!
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4 text-left">
+        <h5>DATE: <span>{{today | date:'fullDate'}}</span></h5> <br>
+        <h5>RECEIPT NO.<span>{{num}}</span></h5>
+    </div>
+    <div class="col-sm-6">
+        <h4>BILL TO:</h4>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <input id="biName" class="form-control" type="text" formControlName='biName' placeholder="Name">
+                <span *ngIf="!Form.get('biName').valid && Form.get('biName').touched" class="help-block">
+                    Please enter name!
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <input id="biCompanyName" class="form-control" type="text" formControlName='biCompanyName' placeholder="Company Name">
+                <span *ngIf="!Form.get('biCompanyName').valid && Form.get('biCompanyName').touched" class="help-block">
+                    Please enter copmany name!
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <input id="biAddress" class="form-control" type="text" formControlName='biAddress' placeholder="Address (City, State Zip Code)">
+                <span *ngIf="!Form.get('biAddress').valid && Form.get('biAddress').touched" class="help-block">
+                    Please enter address!
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <input id="biPhone" class="form-control" type="text" formControlName='biPhone' placeholder="Phone">
+                <span *ngIf="!Form.get('biPhone').valid && Form.get('biPhone').touched" class="help-block">
+                    Please enter phone!
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <input id="biEmail" class="form-control" type="email" formControlName='biEmail' placeholder="Email">
+                <span *ngIf="!Form.get('biEmail').valid && Form.get('biEmail').touched" class="help-block">
+                    Please enter valid email!
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <h4>SHIP TO: </h4>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <input id="shName" class="form-control" type="text" formControlName='shName' placeholder="Name">
+                <span *ngIf="!Form.get('shName').valid && Form.get('shName').touched" class="help-block">
+                    Please enter name!
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <input id="shCompanyName" class="form-control" type="text" formControlName='shCompanyName' placeholder="Company Name">
+                <span *ngIf="!Form.get('shCompanyName').valid && Form.get('shCompanyName').touched" class="help-block">
+                    Please enter copmany name!
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <input id="shAddress" class="form-control" type="text" formControlName='shAddress' placeholder="Address (City, State Zip Code)">
+                <span *ngIf="!Form.get('shAddress').valid && Form.get('shAddress').touched" class="help-block">
+                    Please enter address!
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <input id="shPhone" class="form-control" type="text" formControlName='shPhone' placeholder="Phone">
+                <span *ngIf="!Form.get('shPhone').valid && Form.get('shPhone').touched" class="help-block">
+                    Please enter phone!
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <input id="shEmail" class="form-control" type="email" formControlName='shEmail' placeholder="Email">
+                <span *ngIf="!Form.get('shEmail').valid && Form.get('shEmail').touched" class="help-block">
+                    Please enter valid email!
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <table class="table text-center">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">DESCRIPTION</th>
+                <th scope="col">QTY</th>
+                <th scope="col">UNIT PRICE</th>
+                <th scope="col">TOTAL</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td><input type="text" class="form-control"></td>
+                <td><input #quntity1 type="number" class="form-control"></td>
+                <td><input #price1 type="number" class="form-control" (input)="calculateTotalPrice(quntity1.value, price1.value, 1)"></td>
+                <td *ngIf="total1 > 0">{{total1 | currency}}</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td><input type="text" class="form-control"></td>
+                <td><input #quntity2 type="number" class="form-control"></td>
+                <td><input #price2 type="number" class="form-control" (input)="calculateTotalPrice(quntity2.value, price2.value, 2)"></td>
+                <td *ngIf="total2 > 0">{{total2 | currency}}</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td><input type="text" class="form-control"></td>
+                <td><input #quntity3 type="number" class="form-control"></td>
+                <td><input #price3 type="number" class="form-control" (input)="calculateTotalPrice(quntity3.value, price3.value, 3)"></td>
+                <td *ngIf="total3 > 0">{{total3 | currency}}</td>
+              </tr>
+              <tr>
+                <th scope="row">4</th>
+                <td><input type="text" class="form-control"></td>
+                <td><input #quntity4 type="number" class="form-control"></td>
+                <td><input #price4 type="number" class="form-control" (input)="calculateTotalPrice(quntity4.value, price4.value, 4)"></td>
+                <td *ngIf="total4 > 0">{{total4 | currency}}</td>
+              </tr>
+              <tr>
+                <th scope="row">5</th>
+                <td><input type="text" class="form-control"></td>
+                <td><input #quntity5 type="number" class="form-control"></td>
+                <td><input #price5 type="number" class="form-control" (input)="calculateTotalPrice(quntity5.value, price5.value, 5)"></td>
+                <td *ngIf="total5 > 0">{{total5 | currency}}</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+            <div class="col-sm-12">
+                <textarea rows="10" id="notes" class="form-control" formControlName='notes' placeholder="Notes & comments go in here..."></textarea>                <span *ngIf="!Form.get('notes').valid && Form.get('notes').touched" class="help-block">
+                    Please enter notes!
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <h5>SUBTOTAL: <span>{{subTotal}}</span></h5>
+        <h5 class="disCount">DISCOUNT: <input type="number" #discount class="form-control" (input)="totalDiscount(discount.value)"></h5>
+        <h5>SUBTOTAL LESS DISCOUNT: <span>{{totalDis}}</span></h5>
+        <h5 class="disCount">TAX RATE: <input type="number" #taxRa class="form-control" (input)="taxRate(taxRa.value)"></h5>
+        <h5>TOTAL TAX: <span>{{totalTax}}</span></h5>
+        <h5 class="disCount">SHIPPING/HANDLING: <input type="number" #shipping class="form-control" (input)="balance(shipping.value)"></h5>
+        <h5>BALANCE PAID: <span>{{totalBalance}}</span></h5>
+    </div>
+    <div class="col-sm-6 text-center">
+        <button class="btn btn-primary" type="submit">Export Data</button>
+    </div>
+    <div class="col-sm-6 text-center">
+        <button class="btn btn-danger" (click)="imprtData()">Import Data</button>
+    </div>
+    <br><br>
+</form>
